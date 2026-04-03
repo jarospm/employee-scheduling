@@ -144,6 +144,8 @@ Get a single employee's profile. Employer only.
 
 **Errors:**
 
+- `401` — Not authenticated
+- `403` — Not an employer
 - `404` — Employee not found
 
 ---
@@ -263,6 +265,10 @@ Employees see only their own entries. Employers see all.
   ]
 }
 ```
+
+**Errors:**
+
+- `401` — Not authenticated
 
 ---
 
