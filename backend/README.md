@@ -37,6 +37,8 @@ Starts the server with `tsx watch` — auto-restarts on file changes.
 - `npm run dev` — start dev server with hot reload
 - `npm run build` — compile TypeScript to `dist/`
 - `npm run start` — run compiled output (production)
+- `npm run lint` — run ESLint
+- `npm run lint:fix` — auto-fix lint issues
 
 ## Project Structure
 
