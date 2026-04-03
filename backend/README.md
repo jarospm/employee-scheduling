@@ -8,7 +8,19 @@
 npm install
 ```
 
-### 2. Configure environment variables
+### 2. Start the database
+
+```bash
+cp .env-example .env
+docker compose up -d
+```
+
+This starts PostgreSQL on port 5433 and pgAdmin on port 8080.
+
+- **pgAdmin UI** — http://localhost:8080 (login: `admin@admin.com` / `admin`)
+- **PostgreSQL** — `localhost:5433` (user: `root`, password: `root`, db: `employee_scheduling`)
+
+### 3. Configure environment variables
 
 Copy the example file and fill in your values:
 
@@ -24,7 +36,7 @@ The `.env` file is gitignored — never commit it.
 - **DATABASE_URL** — PostgreSQL connection string that Prisma uses to connect to the database. Format: `postgresql://USER:PASSWORD@HOST:PORT/DB_NAME`
 - **JWT_SECRET** — secret key used to sign and verify JWT auth tokens. Use any random string. Keep it private — anyone with this value can forge tokens.
 
-### 3. Run the dev server
+### 4. Run the dev server
 
 ```bash
 npm run dev

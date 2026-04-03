@@ -20,12 +20,15 @@ See each project's README for details:
 
 ## Quickstart
 
+### Database
+
 ### Backend
 
 ```bash
 cd backend
 npm install
 cp .env-example .env     # fill in your values
+docker compose up -d     # PostgreSQL on :5433, pgAdmin on :8080
 npm run dev              # http://localhost:3000
 ```
 
