@@ -6,7 +6,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -21,7 +20,7 @@ enum ShiftType {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   name String
   email String @unique
   passwordHash String
@@ -31,7 +30,7 @@ model User {
 }
 
 model Employee {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   userId String @unique
   firstName String
   lastName String
@@ -47,7 +46,7 @@ model Employee {
 
 model Availability {
   id String @id @default(uuid())
-  employeeId Int 
+  employeeId String
   date DateTime @db.Date
   shiftType ShiftType 
   isAvailable Boolean @default(true)
@@ -60,8 +59,8 @@ model Availability {
 }
 
 model ScheduleEntry {
-  id Int @id @default(autoincrement())
-  employeeId Int 
+  id String @id @default(uuid())
+  employeeId String
   date DateTime @db.Date
   shiftType ShiftType 
   createdAt DateTime @default(now())
