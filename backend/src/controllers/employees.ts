@@ -1,5 +1,13 @@
-// getAll
+import type { Request, Response } from 'express';
 
-// create
+export function getAll(_req: Request, res: Response): void {
+  res.status(501).json({ error: 'Not implemented' });
+}
 
-// getById
+export function create(_req: Request, res: Response): void {
+  res.status(501).json({ error: 'Not implemented' });
+}
+
+export function getById(_req: Request, res: Response): void {
+  res.status(501).json({ error: 'Not implemented' });
+}

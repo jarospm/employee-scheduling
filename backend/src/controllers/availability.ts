@@ -1,3 +1,9 @@
-// get
+import type { RequestHandler } from 'express';
 
-// update
+export const get: RequestHandler = (_req, res): void => {
+  res.status(501).json({ error: 'Not implemented' });
+};
+
+export const update: RequestHandler = (_req, res): void => {
+  res.status(501).json({ error: 'Not implemented' });
+};
