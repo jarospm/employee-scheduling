@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
+import type { PrismaClient as PrismaClientType } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 
@@ -12,7 +13,6 @@ if (!connectionString) {
 const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
-const prisma = new PrismaClient({ adapter });
+const prisma = new PrismaClient({ adapter }) as PrismaClientType;
 
 export default prisma;

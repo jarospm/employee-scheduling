@@ -10,8 +10,15 @@ export default defineConfig([
     files: ['**/*.ts'],
     plugins: { js },
     extends: ['js/recommended'],
-    languageOptions: { globals: globals.node },
+    languageOptions: {
+      globals: globals.node,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
   },
+
   ...tseslint.configs.recommendedTypeChecked,
   eslintPluginPrettier,
   {
@@ -19,12 +26,6 @@ export default defineConfig([
   },
   {
     files: ['src/**/*.ts'],
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
     rules: {
       'prettier/prettier': 'error',
       eqeqeq: ['error', 'always'],
