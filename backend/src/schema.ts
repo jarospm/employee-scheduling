@@ -8,7 +8,6 @@
 // updateAvailabilitySchema — PUT /availability/:employeeId (entries: { date, shiftType, isAvailable }[])
 
 // updateScheduleSchema    — PUT /schedule (entries: { date, shiftType, employeeId }[])
-/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 
 import { z } from 'zod';
 
@@ -18,3 +17,19 @@ export const loginSchema = z.object({
 });
 
 export type LoginInput = z.infer<typeof loginSchema>;
+
+const shiftTypeSchema = z.enum(['MORNING', 'AFTERNOON', 'NIGHT']);
+
+export const updateAvailabilitySchema = z.object({
+  entries: z
+    .array(
+      z.object({
+        date: z.string().date(),
+        shiftType: shiftTypeSchema,
+        isAvailable: z.boolean(),
+      }),
+    )
+    .min(1),
+});
+
+export type UpdateAvailabilityInput = z.infer<typeof updateAvailabilitySchema>;
