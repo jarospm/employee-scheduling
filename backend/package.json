@@ -15,6 +15,7 @@
     "@types/pg": "^8.20.0",
     "bcrypt": "^6.0.0",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.3.2",
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.20.0",
     "prisma": "^7.7.0",
