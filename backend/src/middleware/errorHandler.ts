@@ -1,7 +1,20 @@
-// Global error handler — registered once in index.ts after all routes:
-//   app.use(errorHandler)
+import type { Request, Response, NextFunction } from 'express';
 
-// Catches any error thrown or passed via next(error):
-//   - Known errors (e.g. with a statusCode property): return that status + message
-//   - Unknown errors: log the stack trace, return 500 + generic message
-//   - Always returns JSON: { "error": "message" }
+export interface AppError extends Error {
+  statusCode?: number;
+}
+
+export function errorHandler(
+  err: AppError,
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+): void {
+  void next;
+  if (err.statusCode) {
+    res.status(err.statusCode).json({ error: err.message });
+  } else {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}

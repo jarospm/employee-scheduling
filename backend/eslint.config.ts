@@ -15,7 +15,7 @@ export default defineConfig([
   ...tseslint.configs.recommendedTypeChecked,
   eslintPluginPrettier,
   {
-    ignores: ['eslint.config.ts'],
+    ignores: ['eslint.config.ts', 'prisma.config.ts'],
   },
   {
     files: ['src/**/*.ts'],

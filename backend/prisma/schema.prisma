@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  EMPLOYER
+  EMPLOYEE
+}
+
+enum ShiftType {
+  MORNING
+  AFTERNOON
+  NIGHT
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  role         Role
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  employee     Employee?
+}
+
+model Employee {
+  id             String          @id @default(uuid())
+  userId         String          @unique
+  user           User            @relation(fields: [userId], references: [id])
+  firstName      String
+  lastName       String
+  phone          String?
+  position       String?
+  avatar         String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  availability   Availability[]
+  scheduleEntries ScheduleEntry[]
+}
+
+model Availability {
+  id          String    @id @default(uuid())
+  employeeId  String
+  employee    Employee  @relation(fields: [employeeId], references: [id])
+  date        DateTime  @db.Date
+  shiftType   ShiftType
+  isAvailable Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([employeeId, date, shiftType])
+}
+
+model ScheduleEntry {
+  id         String    @id @default(uuid())
+  employeeId String
+  employee   Employee  @relation(fields: [employeeId], references: [id])
+  date       DateTime  @db.Date
+  shiftType  ShiftType
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@unique([employeeId, date, shiftType])
+}

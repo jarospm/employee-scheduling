@@ -1,6 +1,10 @@
 import { Router } from 'express';
+import { authenticate, requireRole } from '../middleware/auth.js';
 
 const router = Router();
+
+// All employee routes require authentication and EMPLOYER role
+router.use(authenticate, requireRole('EMPLOYER'));
 
 // GET /        — employer only → employeesController.getAll
 
