@@ -1,4 +1,5 @@
 import express from 'express';
+import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/auth.js';
 import employeeRoutes from './routes/employees.js';
 import availabilityRoutes from './routes/availability.js';
@@ -10,6 +11,17 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 // TODO: app.use(cors()) — needed for frontend on a different port
+
+// General API rate limiter — 100 requests per minute per IP
+app.use(
+  rateLimit({
+    windowMs: 60 * 1000,
+    limit: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: 'Too many requests, please try again later' },
+  }),
+);
 
 // Routes
 app.use('/auth', authRoutes);
