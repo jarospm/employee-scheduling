@@ -28,7 +28,10 @@ export default defineConfig([
     rules: {
       'prettier/prettier': 'error',
       eqeqeq: ['error', 'always'],
-      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
       '@typescript-eslint/no-floating-promises': 'error',
       '@typescript-eslint/await-thenable': 'error',
     },

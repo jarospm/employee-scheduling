@@ -8,9 +8,8 @@ export function errorHandler(
   err: AppError,
   _req: Request,
   res: Response,
-  next: NextFunction,
+  _next: NextFunction,
 ): void {
-  void next;
   if (err.statusCode) {
     res.status(err.statusCode).json({ error: err.message });
   } else {
