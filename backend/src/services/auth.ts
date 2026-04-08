@@ -1,7 +1,7 @@
 // login — verify credentials, return a signed token
 
 import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import prisma from '../lib/prisma.js';
 import type { LoginInput } from '../schema.js';
 
