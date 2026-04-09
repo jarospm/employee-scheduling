@@ -1,12 +1,13 @@
-import "dotenv/config";
-import { defineConfig } from "prisma/config";
+module.exports = {
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+  },
+  rules: {
 
-export default defineConfig({
-  schema: "prisma/schema.prisma",
-  migrations: {
-    path: "prisma/migrations",
+    '@typescript-eslint/await-thenable': 'off',
   },
-  datasource: {
-    url: process.env["DATABASE_URL"],
-  },
-});
+};
