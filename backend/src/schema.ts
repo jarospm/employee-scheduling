@@ -45,3 +45,17 @@ export const updateAvailabilitySchema = z.object({
 });
 
 export type UpdateAvailabilityInput = z.infer<typeof updateAvailabilitySchema>;
+
+export const updateScheduleSchema = z.object({
+  entries: z
+    .array(
+      z.object({
+        date: z.string().date(),
+        shiftType: shiftTypeSchema,
+        employeeId: z.string().uuid(),
+      }),
+    )
+    .min(1),
+});
+
+export type UpdateScheduleInput = z.infer<typeof updateScheduleSchema>;
