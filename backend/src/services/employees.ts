@@ -81,7 +81,7 @@ export const createEmployeeRecord = async (
       error instanceof Prisma.PrismaClientKnownRequestError &&
       error.code === 'P2002'
     ) {
-      throw new Error('Email already exists');
+      throw new Error('Email already exists', { cause: error });
     }
 
     throw error;
