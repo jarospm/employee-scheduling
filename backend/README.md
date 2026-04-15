@@ -21,6 +21,8 @@ The `.env` file is gitignored - never commit it. Defaults work out of the box; a
 - **PORT** - port the Express server runs on (default `3000`)
 - **DATABASE_URL** - PostgreSQL connection string that Prisma uses. Format: `postgresql://USER:PASSWORD@HOST:PORT/DB_NAME`
 - **JWT_SECRET** - secret key for signing/verifying JWT auth tokens. Keep it private.
+- **NODE_ENV** - set to `production` to switch Winston logs to JSON; otherwise pretty-printed for dev terminals.
+- **LOG_LEVEL** - optional override (`debug`, `info`, `warn`, `error`). Defaults to `info` in production and `debug` otherwise.
 
 #### Docker Compose variables (used by `compose.yml`)
 
@@ -118,7 +120,7 @@ src/
 ├── schema.ts             # Zod schemas - single source of truth for input validation
 ├── lib/
 │   ├── prisma.ts         # Prisma Client singleton (shared across services)
-│   └── logger.ts         # Winston logger
+│   └── logger.ts         # Winston logger (pretty in dev, JSON in production)
 ├── types/
 │   └── express.d.ts      # Augments Express Request with req.user
 ├── routes/               # Route definitions - HTTP method + path + middleware chain
