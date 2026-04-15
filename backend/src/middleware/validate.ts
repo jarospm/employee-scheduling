@@ -15,7 +15,7 @@ export function validate(schema: z.ZodTypeAny) {
     if (!result.success) {
       res.status(400).json({
         error: 'Validation error',
-        details: result.error.flatten(),
+        details: z.flattenError(result.error),
       });
       return;
     }
