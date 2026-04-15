@@ -13,6 +13,7 @@
     "db:reset": "prisma migrate reset && prisma db seed",
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
+    "test": "npm run test:auth && npm run test:employees && npm run test:availability && npm run test:schedule",
     "test:auth": "./scripts/api/test-auth.sh",
     "test:employees": "./scripts/api/test-employees.sh",
     "test:availability": "./scripts/api/test-availability.sh",

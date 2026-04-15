@@ -32,6 +32,8 @@ npm run db:seed          # load test users and schedule
 npm run dev              # http://localhost:3000
 ```
 
+With the server running, `npm test` (in another terminal) runs the full integration suite against it.
+
 See the [backend README](backend/README.md) for the full script reference and seeded credentials.
 
 ### Frontend
