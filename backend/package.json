@@ -10,7 +10,7 @@
     "db:down": "docker compose down",
     "db:migrate": "prisma migrate dev && prisma generate",
     "db:generate": "prisma generate",
-    "db:reset": "prisma migrate reset",
+    "db:reset": "prisma migrate reset && prisma db seed",
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "test:auth": "./scripts/api/test-auth.sh",
