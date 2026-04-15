@@ -7,7 +7,7 @@ export const get: RequestHandler<
   unknown,
   never,
   ScheduleQueryInput
-> = async (req, res) => {
+> = async (req, res, next) => {
   try {
     if (!req.user) {
       res.status(401).json({ error: 'Not authenticated' });
@@ -32,7 +32,7 @@ export const get: RequestHandler<
       return;
     }
 
-    res.status(500).json({ error: 'Internal server error' });
+    next(error);
   }
 };
 
@@ -40,7 +40,7 @@ export const update: RequestHandler<
   Record<string, never>,
   unknown,
   UpdateScheduleInput
-> = async (req, res) => {
+> = async (req, res, next) => {
   try {
     if (!req.user) {
       res.status(401).json({ error: 'Not authenticated' });
@@ -55,6 +55,6 @@ export const update: RequestHandler<
       return;
     }
 
-    res.status(500).json({ error: 'Internal server error' });
+    next(error);
   }
 };
