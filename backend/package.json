@@ -14,6 +14,7 @@
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "test:auth": "./scripts/api/test-auth.sh",
+    "test:employees": "./scripts/api/test-employees.sh",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

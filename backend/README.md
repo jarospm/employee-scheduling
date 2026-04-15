@@ -85,6 +85,7 @@ Starts the server with `tsx watch` - auto-restarts on file changes.
 Integration tests hit a running server via curl. Start the server in another terminal first (`npm run dev`), then:
 
 - `npm run test:auth` - login and role-based auth
+- `npm run test:employees` - `/employees` list, create, get by id
 
 ### Quality checks
 
@@ -104,7 +105,8 @@ prisma/
 scripts/
 └── api/                  # Integration test scripts (bash + curl) per endpoint group
     ├── _common.sh        # Shared helpers (sourced, not run directly)
-    └── test-auth.sh
+    ├── test-auth.sh
+    └── test-employees.sh
 
 src/
 ├── index.ts              # Entry point - Express app, boot-time config check, mounts routes
