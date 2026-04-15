@@ -84,6 +84,7 @@ Starts the server with `tsx watch` - auto-restarts on file changes.
 
 Integration tests hit a running server via curl. Start the server in another terminal first (`npm run dev`), then:
 
+- `npm test` - run every suite below in order; stops at the first failure
 - `npm run test:auth` - login and role-based auth
 - `npm run test:employees` - `/employees` list, create, get by id
 - `npm run test:availability` - `/availability/:id` get (with filters) + put
@@ -137,7 +138,7 @@ src/
 │   └── schedule.ts
 └── middleware/           # Reusable middleware - runs before controllers
     ├── auth.ts           # JWT verification + role-based access
-    ├── validate.ts       # Zod schema validation (generic)
+    ├── validate.ts       # Zod validation for req.body or req.query
     ├── requestLogger.ts  # Logs every request with status + duration
     └── errorHandler.ts   # Global error handler
 ```
@@ -152,6 +153,6 @@ Request → Route → Middleware (auth, validate) → Controller → Service →
 
 - **Route** — wiring only: maps a path to middleware + a controller function
 - **Middleware** — cross-cutting concerns reused across routes (auth, validation, errors)
-- **Controller** — HTTP layer: reads params/body, calls the service, picks the status code
+- **Controller** — HTTP layer: reads params/body/query, calls the service, picks the status code
 - **Service** — business logic: no knowledge of HTTP, works with plain data and Prisma
 - **Schema** — Zod schemas define valid input shapes, also export TypeScript types via `z.infer`
