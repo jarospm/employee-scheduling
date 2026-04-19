@@ -1,167 +1,76 @@
-import { useState, type FormEvent } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth } from '@/lib/auth';
-import { apiFetch, ApiError } from '@/lib/api';
-import { Button } from '@/components/ui/button';
-import { Avatar } from '@/components/Avatar';
-import { PositionBadge } from '@/components/PositionBadge';
+import { Login } from '@/pages/Login';
+import { RequireAuth } from '@/pages/RequireAuth';
+import { ManagerLayout } from '@/pages/manager/ManagerLayout';
+import { StaffLayout } from '@/pages/staff/StaffLayout';
+import { PlaceholderPage } from '@/pages/PlaceholderPage';
 
-type Employee = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string | null;
-  position: string | null;
-  avatar: string | null;
-};
-
-function LoginCard() {
-  const { login } = useAuth();
-  const [email, setEmail] = useState('owner@company.com');
-  const [password, setPassword] = useState('password123');
-
-  const mutation = useMutation({
-    mutationFn: () => login(email, password),
-  });
-
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    mutation.mutate();
-  };
-
+function RootRedirect() {
+  const { isAuthenticated, user } = useAuth();
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
   return (
-    <form
-      onSubmit={onSubmit}
-      className="w-full max-w-sm space-y-4 rounded-2xl border border-line-soft bg-paper p-6"
-    >
-      <div>
-        <h1 className="font-display text-3xl text-ink">Sign in</h1>
-        <p className="text-sm text-ink-3">Data-layer demo</p>
-      </div>
-      <label className="block space-y-1">
-        <span className="text-[11px] font-semibold tracking-wider text-ink-3 uppercase">
-          Email
-        </span>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="block w-full rounded-md border border-line-soft bg-bg px-3 py-2 font-mono text-sm focus:border-ink focus:outline-none"
-        />
-      </label>
-      <label className="block space-y-1">
-        <span className="text-[11px] font-semibold tracking-wider text-ink-3 uppercase">
-          Password
-        </span>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="block w-full rounded-md border border-line-soft bg-bg px-3 py-2 font-mono text-sm focus:border-ink focus:outline-none"
-        />
-      </label>
-      {mutation.error && (
-        <p className="text-sm text-red-700">
-          {mutation.error instanceof ApiError
-            ? `${mutation.error.status} ${mutation.error.message}`
-            : (mutation.error as Error).message}
-        </p>
-      )}
-      <Button type="submit" disabled={mutation.isPending} className="w-full">
-        {mutation.isPending ? 'Signing in...' : 'Sign in'}
-      </Button>
-    </form>
-  );
-}
-
-function EmployeesList({ token }: { token: string }) {
-  const query = useQuery({
-    queryKey: ['employees'],
-    queryFn: () => apiFetch<{ employees: Employee[] }>('/employees', { token }),
-  });
-
-  if (query.isLoading)
-    return <p className="text-ink-3">Loading employees...</p>;
-  if (query.isError) {
-    return (
-      <p className="text-red-700">
-        Failed to load:{' '}
-        {query.error instanceof ApiError
-          ? `${query.error.status} ${query.error.message}`
-          : (query.error as Error).message}
-      </p>
-    );
-  }
-
-  return (
-    <ul className="space-y-2">
-      {query.data!.employees.map((e) => (
-        <li
-          key={e.id}
-          className="flex items-center justify-between gap-3 rounded-lg border border-line-soft bg-paper p-3"
-        >
-          <div className="flex items-center gap-3">
-            <Avatar
-              firstName={e.firstName}
-              lastName={e.lastName}
-              position={e.position}
-            />
-            <div>
-              <div className="text-sm font-medium text-ink">
-                {e.firstName} {e.lastName}
-              </div>
-              <div className="font-mono text-[11px] text-ink-3">{e.email}</div>
-            </div>
-          </div>
-          <PositionBadge position={e.position} />
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function Dashboard() {
-  const { user, token, logout } = useAuth();
-
-  return (
-    <div className="space-y-6">
-      <header className="flex items-center justify-between rounded-2xl border border-line-soft bg-paper p-4">
-        <div>
-          <p className="text-[11px] font-semibold tracking-wider text-ink-3 uppercase">
-            Signed in as {user!.role}
-          </p>
-          <p className="font-mono text-sm text-ink">{user!.email}</p>
-        </div>
-        <Button variant="outline" onClick={logout}>
-          Log out
-        </Button>
-      </header>
-
-      {user!.role === 'EMPLOYER' ? (
-        <section className="space-y-3">
-          <h2 className="font-display text-2xl text-ink">Employees</h2>
-          <EmployeesList token={token!} />
-        </section>
-      ) : (
-        <p className="rounded-2xl border border-line-soft bg-paper p-4 text-sm text-ink-3">
-          Logged in as employee. Employee screens land in #17 / #18.
-        </p>
-      )}
-    </div>
+    <Navigate
+      to={
+        user!.role === 'EMPLOYER' ? '/manager/employees' : '/staff/availability'
+      }
+      replace
+    />
   );
 }
 
 function App() {
-  const { isAuthenticated } = useAuth();
   return (
-    <div className="min-h-screen bg-bg text-ink">
-      <main className="mx-auto max-w-2xl px-6 py-12">
-        {isAuthenticated ? <Dashboard /> : <LoginCard />}
-      </main>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+
+        <Route element={<RequireAuth role="EMPLOYER" />}>
+          <Route path="/manager" element={<ManagerLayout />}>
+            <Route index element={<Navigate to="employees" replace />} />
+            <Route
+              path="employees"
+              element={<PlaceholderPage title="Employees" issue="#14" />}
+            />
+            <Route
+              path="employees/new"
+              element={
+                <PlaceholderPage title="Register employee" issue="#15" />
+              }
+            />
+            <Route
+              path="employees/:id"
+              element={<PlaceholderPage title="Edit employee" issue="#15" />}
+            />
+            <Route
+              path="job-schedule"
+              element={<PlaceholderPage title="Job schedule" issue="#16" />}
+            />
+            <Route
+              path="work-schedule"
+              element={<PlaceholderPage title="Work schedule" issue="#30" />}
+            />
+          </Route>
+        </Route>
+
+        <Route element={<RequireAuth role="EMPLOYEE" />}>
+          <Route path="/staff" element={<StaffLayout />}>
+            <Route index element={<Navigate to="availability" replace />} />
+            <Route
+              path="availability"
+              element={<PlaceholderPage title="My availability" issue="#17" />}
+            />
+            <Route
+              path="schedule"
+              element={<PlaceholderPage title="My schedule" issue="#18" />}
+            />
+          </Route>
+        </Route>
+
+        <Route path="/" element={<RootRedirect />} />
+        <Route path="*" element={<RootRedirect />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
