@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express';
 import authRoutes from './routes/auth.js';
 import employeeRoutes from './routes/employees.js';
@@ -20,9 +21,15 @@ for (const key of REQUIRED_ENV) {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Allow the frontend dev server (and any explicitly configured origin) to call the API.
+const corsOrigins = (process.env.CORS_ORIGIN ?? 'http://localhost:5173')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+app.use(cors({ origin: corsOrigins }));
 app.use(express.json());
 app.use(requestLogger);
-// TODO: app.use(cors()) — needed for frontend on a different port
 
 // Routes
 app.use('/auth', authRoutes);
