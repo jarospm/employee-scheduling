@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth } from '@/lib/auth';
 import { Login } from '@/pages/Login';
 import { RequireAuth } from '@/pages/RequireAuth';
+import { EmployeeFormPage } from '@/pages/manager/EmployeeFormPage';
 import { EmployeesPage } from '@/pages/manager/EmployeesPage';
 import { ManagerLayout } from '@/pages/manager/ManagerLayout';
 import { StaffLayout } from '@/pages/staff/StaffLayout';
@@ -30,16 +31,8 @@ function App() {
           <Route path="/manager" element={<ManagerLayout />}>
             <Route index element={<Navigate to="employees" replace />} />
             <Route path="employees" element={<EmployeesPage />} />
-            <Route
-              path="employees/new"
-              element={
-                <PlaceholderPage title="Register employee" issue="#15" />
-              }
-            />
-            <Route
-              path="employees/:id"
-              element={<PlaceholderPage title="Edit employee" issue="#15" />}
-            />
+            <Route path="employees/new" element={<EmployeeFormPage />} />
+            <Route path="employees/:id" element={<EmployeeFormPage />} />
             <Route
               path="job-schedule"
               element={<PlaceholderPage title="Job schedule" issue="#16" />}
