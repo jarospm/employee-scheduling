@@ -79,8 +79,8 @@ function Hero({ count, loading }: { count: number; loading: boolean }) {
             ? 'Loading...'
             : `${count} ${count === 1 ? 'person' : 'people'}`}
         </p>
-        <h1 className="font-display text-[56px] leading-[1.08] text-ink">
-          Everyone on the <i className="text-terracotta">team</i>.
+        <h1 className="font-display text-[48px] leading-[1.08] text-ink">
+          The dream <i className="text-terracotta">team</i>
         </h1>
       </div>
       <Button onClick={() => navigate('/manager/employees/new')} size="lg">

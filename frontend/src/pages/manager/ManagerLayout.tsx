@@ -11,15 +11,15 @@ const TABS: (ChromeTab & { path: string })[] = [
     icon: <Users size={14} />,
   },
   {
-    id: 'job-schedule',
-    path: '/manager/job-schedule',
-    label: 'Job Schedule',
+    id: 'schedule',
+    path: '/manager/schedule',
+    label: 'Schedule',
     icon: <Calendar size={14} />,
   },
   {
-    id: 'work-schedule',
-    path: '/manager/work-schedule',
-    label: 'Work Schedule',
+    id: 'availability',
+    path: '/manager/availability',
+    label: 'Availability',
     icon: <Grid3x3 size={14} />,
   },
 ];
@@ -45,7 +45,7 @@ export function ManagerLayout() {
   return (
     <div className="min-h-screen bg-bg text-ink">
       <TopChrome
-        badge="Manager · Restaurant"
+        badge="Manager"
         tabs={TABS}
         activeTab={activeTab}
         onTabChange={handleTabChange}

@@ -203,7 +203,7 @@ function Hero({
           Week of {weekOf}
         </p>
         <h1 className="font-display text-[48px] leading-[1.08] text-ink">
-          Job schedule, <i className="text-terracotta">composed</i>.
+          Weekly shift <i className="text-terracotta">schedule</i>
         </h1>
       </div>
       <WeekNavigator weekOf={weekOf} onChange={onWeekChange} />

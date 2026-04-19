@@ -146,7 +146,7 @@ function Hero({
           Week of {weekOf}
         </p>
         <h1 className="font-display text-[48px] leading-[1.08] text-ink">
-          Who's on <i className="text-terracotta">when</i>.
+          Team availability <i className="text-terracotta">preferences</i>
         </h1>
       </div>
       <WeekNavigator weekOf={weekOf} onChange={onWeekChange} />
@@ -392,8 +392,8 @@ function StatusCell({ status }: { status: CellStatus }) {
         color: `oklch(0.32 0.11 ${m.hue})`,
       }}
     >
-      <span className="text-[11px] font-semibold tracking-[0.02em]">
-        Prefers {m.label.toLowerCase()}
+      <span className="text-[12.5px] font-semibold tracking-[0.02em]">
+        {m.label}
       </span>
       <span className="mt-0.5 font-mono text-[10.5px] opacity-85">
         {m.range}

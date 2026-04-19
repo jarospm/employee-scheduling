@@ -35,8 +35,8 @@ function App() {
             <Route path="employees" element={<EmployeesPage />} />
             <Route path="employees/new" element={<EmployeeFormPage />} />
             <Route path="employees/:id" element={<EmployeeFormPage />} />
-            <Route path="job-schedule" element={<JobSchedulePage />} />
-            <Route path="work-schedule" element={<WorkSchedulePage />} />
+            <Route path="schedule" element={<JobSchedulePage />} />
+            <Route path="availability" element={<WorkSchedulePage />} />
           </Route>
         </Route>
 
