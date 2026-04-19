@@ -11,7 +11,12 @@ check_server
 # Monday/Thursday of the current week — matches the seed's weekDates.
 dow=$(date +%u)
 monday=$(date -v-$((dow - 1))d +%Y-%m-%d)
-thursday=$(date -v+$((4 - dow))d +%Y-%m-%d)
+thu_offset=$((4 - dow))
+if [ "$thu_offset" -ge 0 ]; then
+  thursday=$(date -v+${thu_offset}d +%Y-%m-%d)
+else
+  thursday=$(date -v${thu_offset}d +%Y-%m-%d)
+fi
 
 employer_token=$(login "$EMPLOYER_EMAIL" "$PASSWORD")
 juan_token=$(login "juan.garcia@company.com" "$PASSWORD")
