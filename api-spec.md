@@ -360,3 +360,18 @@ Accepts a list of entries to create or update.
 - `400` — Validation error
 - `403` — Not an employer
 - `404` — Employee not found
+
+---
+
+### DELETE /schedule/:id
+
+Remove a single schedule entry. Employer only.
+Used to unassign an employee from a shift.
+
+**Response 204:** No body.
+
+**Errors:**
+
+- `401` — Not authenticated
+- `403` — Not an employer
+- `404` — Schedule entry not found
