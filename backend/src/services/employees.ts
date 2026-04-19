@@ -1,7 +1,7 @@
 import { hash } from 'bcryptjs';
 import { Prisma } from '@prisma/client';
 import prisma from '../lib/prisma.js';
-import type { CreateEmployeeInput } from '../schema.js';
+import type { CreateEmployeeInput, UpdateEmployeeInput } from '../schema.js';
 
 type EmployeeView = {
   id: string;
@@ -75,6 +75,38 @@ export const createEmployeeRecord = async (
       error.code === 'P2002'
     ) {
       throw new Error('Email already exists', { cause: error });
+    }
+
+    throw error;
+  }
+};
+
+export const updateEmployee = async (
+  id: string,
+  input: UpdateEmployeeInput,
+): Promise<EmployeeView | null> => {
+  try {
+    const updated = await prisma.employee.update({
+      where: { id },
+      data: input,
+      include: { user: { select: { email: true } } },
+    });
+
+    return {
+      id: updated.id,
+      firstName: updated.firstName,
+      lastName: updated.lastName,
+      email: updated.user.email,
+      phone: updated.phone,
+      position: updated.position,
+      avatar: updated.avatar,
+    };
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === 'P2025'
+    ) {
+      return null;
     }
 
     throw error;

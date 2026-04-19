@@ -122,6 +122,49 @@ The employer sets an initial password and shares it with the employee.
 
 ---
 
+### PUT /employees/:id
+
+Update an existing employee's profile. Employer only.
+Send any subset of the updatable fields. Send `null` to clear an optional field.
+
+**Updatable fields:** `firstName`, `lastName`, `phone`, `position`, `avatar`.
+Email and password are not updatable here.
+
+**Request body (partial):**
+
+```json
+{
+  "firstName": "Erik",
+  "position": "Head Chef",
+  "phone": null
+}
+```
+
+**Response 200:**
+
+```json
+{
+  "employee": {
+    "id": "uuid",
+    "firstName": "Erik",
+    "lastName": "Svensson",
+    "email": "erik@example.com",
+    "phone": null,
+    "position": "Head Chef",
+    "avatar": "https://..."
+  }
+}
+```
+
+**Errors:**
+
+- `400` — Validation error (no fields, invalid value, etc.)
+- `401` — Not authenticated
+- `403` — Not an employer
+- `404` — Employee not found
+
+---
+
 ### GET /employees/:id
 
 Get a single employee's profile. Employer only.
