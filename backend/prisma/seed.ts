@@ -163,14 +163,12 @@ async function main() {
         // Maria (Waiter): weekdays afternoon/night, weekends night only.
         {
           employeeId: mariaId,
-          pattern: (di, s) =>
-            di < 5 ? s !== 'MORNING' : s === 'NIGHT',
+          pattern: (di, s) => (di < 5 ? s !== 'MORNING' : s === 'NIGHT'),
         },
         // Pedro (Barista): weekday mornings, weekend morning+afternoon.
         {
           employeeId: pedroId,
-          pattern: (di, s) =>
-            di < 5 ? s === 'MORNING' : s !== 'NIGHT',
+          pattern: (di, s) => (di < 5 ? s === 'MORNING' : s !== 'NIGHT'),
         },
       ],
     },
@@ -188,8 +186,7 @@ async function main() {
         // Pedro: same as this week.
         {
           employeeId: pedroId,
-          pattern: (di, s) =>
-            di < 5 ? s === 'MORNING' : s !== 'NIGHT',
+          pattern: (di, s) => (di < 5 ? s === 'MORNING' : s !== 'NIGHT'),
         },
       ],
     },
