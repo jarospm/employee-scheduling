@@ -7,6 +7,7 @@ import { EmployeesPage } from '@/pages/manager/EmployeesPage';
 import { JobSchedulePage } from '@/pages/manager/JobSchedulePage';
 import { ManagerLayout } from '@/pages/manager/ManagerLayout';
 import { WorkSchedulePage } from '@/pages/manager/WorkSchedulePage';
+import { StaffAvailabilityPage } from '@/pages/staff/StaffAvailabilityPage';
 import { StaffLayout } from '@/pages/staff/StaffLayout';
 import { PlaceholderPage } from '@/pages/PlaceholderPage';
 
@@ -43,10 +44,7 @@ function App() {
         <Route element={<RequireAuth role="EMPLOYEE" />}>
           <Route path="/staff" element={<StaffLayout />}>
             <Route index element={<Navigate to="availability" replace />} />
-            <Route
-              path="availability"
-              element={<PlaceholderPage title="My availability" issue="#17" />}
-            />
+            <Route path="availability" element={<StaffAvailabilityPage />} />
             <Route
               path="schedule"
               element={<PlaceholderPage title="My schedule" issue="#18" />}

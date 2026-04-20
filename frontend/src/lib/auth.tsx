@@ -14,6 +14,7 @@ export type AuthUser = {
   id: string;
   email: string;
   role: UserRole;
+  employeeId?: string;
 };
 
 type AuthSession = {
