@@ -9,7 +9,7 @@ import { ManagerLayout } from '@/pages/manager/ManagerLayout';
 import { WorkSchedulePage } from '@/pages/manager/WorkSchedulePage';
 import { StaffAvailabilityPage } from '@/pages/staff/StaffAvailabilityPage';
 import { StaffLayout } from '@/pages/staff/StaffLayout';
-import { PlaceholderPage } from '@/pages/PlaceholderPage';
+import { StaffSchedulePage } from '@/pages/staff/StaffSchedulePage';
 
 function RootRedirect() {
   const { isAuthenticated, user } = useAuth();
@@ -45,10 +45,7 @@ function App() {
           <Route path="/staff" element={<StaffLayout />}>
             <Route index element={<Navigate to="availability" replace />} />
             <Route path="availability" element={<StaffAvailabilityPage />} />
-            <Route
-              path="schedule"
-              element={<PlaceholderPage title="My schedule" issue="#18" />}
-            />
+            <Route path="schedule" element={<StaffSchedulePage />} />
           </Route>
         </Route>
 
