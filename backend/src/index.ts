@@ -30,6 +30,9 @@ const explicitOrigins = (process.env.CORS_ORIGIN ?? 'http://localhost:5173')
   .filter(Boolean);
 const allowAnyLocalhost = process.env.NODE_ENV !== 'production';
 
+// Log every inbound request before any middleware can short-circuit it
+// (e.g. CORS preflight, CORS rejection, JSON parse errors).
+app.use(requestLogger);
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -44,7 +47,6 @@ app.use(
   }),
 );
 app.use(express.json());
-app.use(requestLogger);
 
 // Routes
 app.use('/auth', authRoutes);
