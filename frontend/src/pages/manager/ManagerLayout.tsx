@@ -11,16 +11,16 @@ const TABS: (ChromeTab & { path: string })[] = [
     icon: <Users size={14} />,
   },
   {
-    id: 'schedule',
-    path: '/manager/schedule',
-    label: 'Schedule',
-    icon: <Calendar size={14} />,
-  },
-  {
     id: 'availability',
     path: '/manager/availability',
     label: 'Availability',
     icon: <Grid3x3 size={14} />,
+  },
+  {
+    id: 'schedule',
+    path: '/manager/schedule',
+    label: 'Schedule',
+    icon: <Calendar size={14} />,
   },
 ];
 
